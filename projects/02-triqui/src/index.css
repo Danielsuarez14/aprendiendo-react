@@ -20,18 +20,19 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
- *{
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
- }
+}
 
- .board h1 {
+.board h1 {
   color: #eee;
   margin-bottom: 16px;
- }
+}
 
- .board button {
+.board button {
   padding: 8px 12px;
   margin: 25px;
   background: transparent;
@@ -42,42 +43,42 @@ body {
   transition: 0.2s;
   font-weight: bold;
   cursor: pointer;
- }
+}
 
- .board button:hover {
+.board button:hover {
   background: #eee;
-  color:#222;
- }
+  color: #222;
+}
 
- .board .game {
+.board .game {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
- }
+}
 
- .turn {
+.turn {
   display: flex;
   justify-content: center;
   margin: 15px auto;
   width: fit-content;
   position: relative;
   border-radius: 10px;
- }
+}
 
- .turn .square,
- .winner .square {
+.turn .square,
+.winner .square {
   width: 70px;
   height: 70px;
   pointer-events: none;
   border-color: transparent;
- }
+}
 
- .square.is-selected {
+.square.is-selected {
   color: #fff;
   background: #09f;
- }
+}
 
- .winner{
+.winner {
   position: absolute;
   width: 100vw;
   height: 100vw;
@@ -86,9 +87,9 @@ body {
   display: grid;
   place-items: center;
   background-color: rgba(0, 0, 0, 0.7);
- }
+}
 
- .winner .text {
+.winner .text {
   background: #111;
   height: 300px;
   width: 320px;
@@ -99,18 +100,18 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
- }
+}
 
- .winner .win {
+.winner .win {
   margin: 0 auto;
   width: fit fit-content;
   border: 2px solid #eee;
   border-radius: 10px;
   display: flex;
   gap: 15px;
- }
+}
 
- .square {
+.square {
   width: 100px;
   height: 100px;
   border: 2px solid #eee;
@@ -119,4 +120,22 @@ body {
   place-items: center;
   cursor: pointer;
   font-size: 48px;
- }
+}
+
+.counter  {
+  display: flex;
+  margin-bottom: 25px;
+  padding: 2px;
+  justify-content: center;
+}
+
+.counter .square {
+  width: 85px;
+  height: 85px;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 48px;
+}

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import { Square } from './components/Square'
-import { TURNS, checkEndGame} from './constants'
-import {checkWinnerFrom} from './logic/board'
+import { TURNS, checkEndGame } from './constants'
+import { checkWinnerFrom } from './logic/board'
 import { WinnerModal } from './components/WinnerModal'
 import confetti from "canvas-confetti"
 
@@ -13,6 +13,9 @@ function App() {
 
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
+  const [counterBurger, setCounterBurger] = useState(0)
+  const [counterCucumber, setCounterCucumber] = useState(0)
+
 
   const resetGame = () => {
     setBoard(Array(9).fill(null))
@@ -25,7 +28,7 @@ function App() {
 
     if (board[index] || winner) return
 
-    const newBoard = [ ... board]
+    const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
 
@@ -39,16 +42,23 @@ function App() {
     if (newWinner) {
       confetti()
       setWinner(newWinner)
-    }else if (checkEndGame(newBoard)) {
+      if (newWinner === TURNS.X) {
+        setCounterBurger(prevCount => prevCount + 1)
+         }else if (newWinner === TURNS.O) {
+          setCounterCucumber(prevCount => prevCount + 1)
+        }
+    } else if (checkEndGame(newBoard)) {
       setWinner(false)
     }
   }
-
-
   return (
     <main className='board'>
       <h1>Triqui</h1>
-      <button onClick={resetGame}>Reset del juego</button>
+      <div className='counter'>
+        <Square>{counterBurger}</Square>
+        <button onClick={resetGame}>Reset del juego</button>
+        <Square>{counterCucumber}</Square>
+      </div>
       <section className='game'>
         {
           board.map((square, index) => {
@@ -72,7 +82,7 @@ function App() {
           {TURNS.O}
         </Square>
       </section>
-      <WinnerModal resetGame={resetGame} winner={winner}  />
+      <WinnerModal resetGame={resetGame} winner={winner} />
     </main>
   )
 }

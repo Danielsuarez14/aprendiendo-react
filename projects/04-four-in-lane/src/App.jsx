@@ -5,6 +5,9 @@ import { TURNS, checkEndGame } from './constants'
 import { Square } from './components/Square'
 import { WinnerModal } from './components/WinnerModal'
 import confetti from "canvas-confetti"
+import Magnet from '../../sounds/Magnets.mp3'
+import Point from '../../sounds/punto.mp3'
+import useSound from 'use-sound'
 
 
 function App() {
@@ -12,10 +15,26 @@ function App() {
     Array(25).fill(null)
   )
 
+  const [play, { stop }] = useSound(Magnet)
+  const [state, setState] = useState(false)
+  const musicButton = () => {
+    if (!state) {
+      play()
+      setState(!state)
+    } else if (state) {
+      stop()
+      setState(!state)
+    }
+  }
+
+  const [playPoint] = useSound(Point)
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
+  const [counterRed, setCounterRed] = useState(0)
+  const [counterYellow, setCounterYellow] = useState(0)
 
-  const resetGame = () =>{
+
+  const resetGame = () => {
     setBoard(Array(25).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
@@ -32,10 +51,16 @@ function App() {
     setTurn(newTurn)
 
     const newWinner = checkWinner(newBoard)
-    if (newWinner){
+    if (newWinner) {
       confetti()
+      playPoint()
       setWinner(newWinner)
-    }else if (checkEndGame(newBoard)) {
+      if (newWinner === TURNS.X) {
+        setCounterRed(prevCount => prevCount + 1)
+      } else if (newWinner === TURNS.O) {
+        setCounterYellow(prevCount => prevCount + 1)
+      }
+    } else if (checkEndGame(newBoard)) {
       setWinner(false)
     }
   }
@@ -60,15 +85,25 @@ function App() {
         }
       </section>
       <section className='turn'>
+        <section className='counter'>
+          <Square >{counterRed}</Square>
+        </section>
         <Square isSelected={turn === TURNS.X}>
           {TURNS.X}
         </Square>
+
+        <button onClick={musicButton}>{state ? 'Stop Music': 'Play music'}</button>
+
         <Square isSelected={turn === TURNS.O}>
           {TURNS.O}
         </Square>
+        <section className='counter'>
+          <Square >{counterYellow}</Square>
+        </section>
       </section>
       <section>
-        <WinnerModal winner={winner} resetGame={resetGame}></WinnerModal>
+        <WinnerModal winner={winner}
+        resetGame={resetGame}/>
       </section>
     </main>
   )

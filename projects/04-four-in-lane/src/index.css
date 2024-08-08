@@ -81,7 +81,7 @@ body {
 .winner {
   position: absolute;
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   display: grid;
@@ -112,8 +112,8 @@ body {
 }
 
 .square {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border: 2px solid #eee;
   border-radius: 5px;
   display: grid;
@@ -130,8 +130,8 @@ body {
 }
 
 .counter .square {
-  width: 85px;
-  height: 85px;
+  width: 70px;
+  height: 70px;
   border: 2px solid #eee;
   border-radius: 5px;
   display: grid;
